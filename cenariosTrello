@@ -1,0 +1,31 @@
+
+Amanda Alves Almeida da Silva
+Processo Seletivo Sensedia
+
+
+Segue alguns cenários criados a partir das regras descritas: 
+
+
+1. O usuário deve realizar a autenticação no Trello APIs (obter token de acesso). 
+
+ - Verificar chave e token
+ * Nao consegui testar com autenticacao oAuth 
+
+2. O usuário deve criar um card e editar esse card.
+
+- Verificar criacao do card utilizando valores corretos
+- Verificar edicao do card utilizando valores corretos
+- Verificar Verificar valor alterado  
+- Verificar campo obrigatorio ao criar
+- Verificar campo obrigatorio ao editar 
+- Verificar criacao de card em uma lista invalida 
+- Verificar acesso a card de um board que nao pertence ao usuario 
+
+3. O usuário deve excluir esse card e também as sujeiras geradas por esta automação.
+
+- Verificar remocao do card  
+- Verificar remocao de card invalido
+
+
+* Scrips escritos no Postman, para testar vai ser preciso importar o file. 
+* Preencher key e token na tabela de variaveis da collection

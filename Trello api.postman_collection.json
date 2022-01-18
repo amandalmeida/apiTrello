@@ -1,0 +1,927 @@
+{
+	"info": {
+		"_postman_id": "3d44deb4-5735-4862-976a-076fbcd8eaf4",
+		"name": "Trello api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Board",
+			"item": [
+				{
+					"name": "GET /1/boards/{id}/memberships",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/4CHGcnOF?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"4CHGcnOF"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get a single board"
+					},
+					"response": []
+				},
+				{
+					"name": "GET /1/boards/{id}/lists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/4CHGcnOF/lists?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"4CHGcnOF",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Card",
+			"item": [
+				{
+					"name": "POST /1/cards",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"cardId\", pm.response.json().id);\r",
+									"\r",
+									"console.log(pm.collectionVariables.get('cardId'));\r",
+									"\r",
+									"pm.test(\"Campo Name nao deve estar vazio\", function () {\r",
+									"    pm.expect(pm.response.json().name).to.not.be.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Matilda\",\r\n\"idList\":\"61e36757f4d4d432057b6669\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /1/cards{id}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//  const apiKey = pm.collectionVariables.get('myKey')\r",
+									"// const apiToken = pm.collectionVariables.get('myToken')\r",
+									"\r",
+									"// //console.log('\"${apiKey}\"')\r",
+									"// pm.sendRequest('https://api.trello.com/list/61e36757f4d4d432057b6669/cards?{{cardId}}?key=${apiKey}&token=${apiToken}', function (err, response) {\r",
+									"//     pm.variables.set(\"card_id\", response.json()[0].id)\r",
+									"//     console.log(response.json());\r",
+									"// });\r",
+									"\r",
+									"pm.test( 'Verificar id do card', function() {\r",
+									"    pm.expect(pm.response.json().id).to.eq(pm.variables.get('cardId'))\r",
+									"\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{cardId}}?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{cardId}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /1/cards/{id}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Gabriel\",\r\n\"idList\":\"61e36757f4d4d432057b6669\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards/61e47996049cba41d6481517?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"61e47996049cba41d6481517"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "List",
+			"item": [
+				{
+					"name": "GET /1/lists/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/lists/61e36757f4d4d432057b6669?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists",
+								"61e36757f4d4d432057b6669"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "1 - Autenticacao",
+			"item": [
+				{
+					"name": "Invalid Acess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Acesso com credenciais invalidas\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"//Verificar chave e token  \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/4CHGcnOF/lists?key=c9667e11565fbaf773a33b8134083eww&token=bfe46c31f665e6dd038f8903a501ea2a07a02650e1da0db2b0a496980796e38a",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"4CHGcnOF",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "c9667e11565fbaf773a33b8134083eww"
+								},
+								{
+									"key": "token",
+									"value": "bfe46c31f665e6dd038f8903a501ea2a07a02650e1da0db2b0a496980796e38a"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2 - Criar Editar Card",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// const apikey = pm.collectionVariables.get(\"myKey\")\r",
+									"// const apitoken = pm.collectionVariables.get(\"myToken\")\r",
+									"\r",
+									"\r",
+									"//  pm.sendRequest(\"https://api.trello.com/4/cards?key=${apikey}&token=${apitoken}\", function (err, response) {\r",
+									"//     console.log(response.json());\r",
+									"//  }) "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"cardId\", pm.response.json().id);\r",
+									"\r",
+									"console.log(pm.collectionVariables.get('cardId'));\r",
+									"\r",
+									"pm.test(\"Verificar criacao de card\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Verificar edicao do card utilizando valores corretos\r",
+									"\r",
+									"pm.test(\"Campo Name nao deve estar vazio\", function () {\r",
+									"    pm.expect(pm.response.json().name).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"//- Verificar campo obrigatorio\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Novo Card\",\r\n\"idList\":\"61e36757f4d4d432057b6669\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create from list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Novo Cardinho\",\r\n\"idList\":\"61e36757f4d4d432057b6669\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/4/cards?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"4",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create from Board",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Usuario sem autorizacao para acessar board\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"console.log(pm.cookies)\r",
+									"\r",
+									"//Verificar acesso a card de um board que nao pertence ao usuario "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Novo Cardinho\",\r\n\"idList\":\"61e36757f4d4d432057b6669\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{realBoardId}}/cards/?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{realBoardId}}",
+								"cards",
+								""
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verificar campo vazio\", function () {\r",
+									"    pm.expect(pm.response.json().name).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verificar se Campo foi atualizado corretamente\", function () {\r",
+									"    pm.expect(pm.response.json().name).eql(\"Card Editado\")\r",
+									"    });\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Card Editado\",\r\n\"idList\":\"61e36757f4d4d432057b6669\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{cardId}}?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{cardId}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit from list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Tentar editar lista invalida\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Card Queria Ser Editado\",\r\n\"idList\":\"61e36757f4d4d432057b6669\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{wrongCardId}}?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{wrongCardId}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "3 - Excluir Card",
+			"item": [
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verificar remocao\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Verificar remocao do card \r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{cardId}}?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{cardId}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verificar remocao de card invalido\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Verificar remocao de card invalido "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/cards/61e47996049cba41d6481517?key={{myKey}}&token={{myToken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"61e47996049cba41d6481517"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{myKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{myToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "cardId",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "myKey",
+			"value": "suaChaveAqui\n",
+			"type": "string"
+		},
+		{
+			"key": "myToken",
+			"value": "seuTokenAqui",
+			"type": "string"
+		},
+		{
+			"key": "cardId",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "cardId",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "wrongCardId",
+			"value": "61e5f3e59c5d2035f8917200",
+			"type": "string"
+		},
+		{
+			"key": "realBoardId",
+			"value": "b5O8BOgm",
+			"type": "string"
+		}
+	]
+}
